@@ -15,6 +15,7 @@ Son necesarias las variables
   <head>
     <meta charset="utf-8">
     <title><?=$titulo?></title>
+    <link rel="stylesheet" href="css/pure.css">
   </head>
   <body>
     <?php
