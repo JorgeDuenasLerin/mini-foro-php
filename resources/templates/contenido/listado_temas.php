@@ -16,9 +16,10 @@ $resultados = listadoTemas();
   <tbody>
     <?php foreach($resultados as $fila) { ?>
       <tr>
-        <td><?=$fila['titulo']?></td>
+        <td><a href='listado_respuestas.php?id=<?=$fila['id']?>'><?=$fila['titulo']?></a></td>
         <td><?=$fila['nombre']?></td>
         <td><?=$fila['creado']?></td>
+        <td><?=$fila['respuestas']?></td>
       </tr>
     <?php } ?>
   </tbody>
