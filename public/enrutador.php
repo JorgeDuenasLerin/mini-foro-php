@@ -2,6 +2,7 @@
 
 if (preg_match('/\.(?:css|js|ico|png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])){
     return false;    // servir la petición tal cual es.
+
 }else {
 
     $ROOT = realpath(__DIR__."/..");
@@ -19,7 +20,7 @@ if (preg_match('/\.(?:css|js|ico|png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"]))
 
     $fichero = $partes[0];
 
-    
+
     if($fichero == "/"){
       header("Location: listado_temas.php");
       die();

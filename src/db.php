@@ -1,6 +1,6 @@
 <?php
 
-include("$ROOT/src/DWESBaseDatos.php");
+//include("$ROOT/src/DWESBaseDatos.php");
 
 $db = new DWESBaseDatos($config['db_file'], $config['db_engine']);
 
