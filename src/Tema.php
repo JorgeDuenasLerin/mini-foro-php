@@ -1,5 +1,12 @@
 <?php
 
+
+/*
+
+Clase que representa un tema
+\- Es independiente de la base de datos
+
+*/
 class Tema {
   private $id;
   private $titulo;
