@@ -1,6 +1,6 @@
 <?php
 
-$resultados = listadoTemas();
+$resultados = TemaManager::obtenerTemasConCountRespuestas();
 
  ?>
 
@@ -14,13 +14,17 @@ $resultados = listadoTemas();
     </tr>
   </thead>
   <tbody>
-    <?php foreach($resultados as $fila) { ?>
-      <tr>
-        <td><a href='listado_respuestas.php?id=<?=$fila['id']?>'><?=$fila['titulo']?></a></td>
-        <td><?=$fila['nombre']?></td>
-        <td><?=$fila['creado']?></td>
-        <td><?=$fila['respuestas']?></td>
-      </tr>
+    <?php
+      foreach($resultados as $fila) {
+        $tema = $fila[0];
+        $count = $fila[1];
+    ?>
+        <tr>
+          <td><a href='listado_respuestas.php?id=<?=$tema->getId()?>'><?=$tema->getTitulo()?></a></td>
+          <td><?=$tema->getNombre()?></td>
+          <td><?=$tema->getCreado()?></td>
+          <td><?=$count?></td>
+        </tr>
     <?php } ?>
   </tbody>
 </table>
