@@ -15,6 +15,7 @@ CREATE TABLE Tema (
   nombre    varchar(20)  NOT NULL,
   pass      varchar(20) NOT NULL,
   etiqueta  varchar(20) NOT NULL,
+  img       varchar(255) NOT NULL,
   creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );

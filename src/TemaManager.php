@@ -11,25 +11,25 @@ class TemaManager implements IDWESEntidadManager{
     public static function getAll(){
         $db = DWESBaseDatos::obtenerInstancia();
 
-        $db -> ejecuta("SELECT t.id, t.titulo, t.nombre, t.etiqueta, t.creado
+        $db -> ejecuta("SELECT t.id, t.titulo, t.nombre, t.etiqueta, t.creado, t.img
                             FROM Tema t");
 
         return array_map(function($fila){
-          return new Tema($fila['id'], $fila['titulo'], $fila['nombre'], $fila['etiqueta'], $fila['creado']);
+          return new Tema($fila['id'], $fila['titulo'], $fila['nombre'], $fila['etiqueta'], $fila['creado'], $fila['img']);
         }, $db -> obtenDatos());
     }
 
     public static function getById($id){
         $db = DWESBaseDatos::obtenerInstancia();
 
-        $db -> ejecuta("SELECT t.id, t.titulo, t.nombre, t.etiqueta, t.creado
+        $db -> ejecuta("SELECT t.id, t.titulo, t.nombre, t.etiqueta, t.creado, t.img
                             FROM Tema t WHERE id = ?");
 
         if($db -> executed ){ // Se pudo ejecutar
             $datos = $db -> obtenDatos($id);
             if(count($datos)>0) { // Hay datos
                 $file = $datos[0];
-                return new Tema($fila['id'], $fila['titulo'], $fila['nombre'], $fila['etiqueta'], $fila['creado']);
+                return new Tema($fila['id'], $fila['titulo'], $fila['nombre'], $fila['etiqueta'], $fila['creado'], $fila['img']);
             }
         }
         return null;
@@ -50,7 +50,7 @@ class TemaManager implements IDWESEntidadManager{
     public static function obtenerTemasConCountRespuestas(){
         $db = DWESBaseDatos::obtenerInstancia();
 
-        $db -> ejecuta("SELECT t.id, t.titulo, t.nombre, t.etiqueta, t.creado, COUNT(*) as respuestas
+        $db -> ejecuta("SELECT t.id, t.titulo, t.nombre, t.etiqueta, t.creado, t.img, COUNT(*) as respuestas
                             FROM Tema t
                             LEFT JOIN Respuesta r ON (t.id = r.id_tema)
                             GROUP BY t.id, t.titulo, t.nombre, t.etiqueta, t.creado
@@ -58,7 +58,7 @@ class TemaManager implements IDWESEntidadManager{
 
         return array_map(function($fila){
           return [
-                    new Tema($fila['id'], $fila['titulo'], $fila['nombre'], $fila['etiqueta'], $fila['creado']),
+                    new Tema($fila['id'], $fila['titulo'], $fila['nombre'], $fila['etiqueta'], $fila['creado'], $fila['img']),
                     $fila['respuestas']
                 ];
         }, $db -> obtenDatos());

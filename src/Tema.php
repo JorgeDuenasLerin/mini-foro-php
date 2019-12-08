@@ -13,13 +13,15 @@ class Tema {
   private $nombre;
   private $etiqueta;
   private $creado;
+  private $img;
 
-  function __construct($id, $titulo, $nombre, $etiqueta, $creado){
+  function __construct($id, $titulo, $nombre, $etiqueta, $creado, $img){
     $this -> id = $id;
     $this -> titulo = $titulo;
     $this -> nombre = $nombre;
     $this -> etiqueta = $etiqueta;
     $this -> creado = $creado;
+    $this -> img = $img;
   }
 
 
@@ -139,6 +141,33 @@ class Tema {
     public function setCreado($creado)
     {
         $this->creado = $creado;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get the value of Img
+     *
+     * @return mixed
+     */
+    public function getImg()
+    {
+        global $config;
+        return $config['img_in_url'] . "/". $this->img;
+    }
+
+    /**
+     * Set the value of Img
+     *
+     * @param mixed $img
+     *
+     * @return self
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
 
         return $this;
     }
