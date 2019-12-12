@@ -12,8 +12,8 @@ El objetivo de este tutorial es ver cómo podemos almacenar imágenes subidas po
 Creamos una nueva entrada en el fichero de confiuguración
 ```
   ...
-  'img_path' => '/resources/images',
-  'img_in_url' => '/images',
+  'img_path' => '/resources/images', <- Localización en disco de las imágenes
+  'img_in_url' => '/images',         <- Si la URL comienza por esto es una imagen subida
   ...
 ```
 
@@ -64,11 +64,29 @@ En los templates solo tenemos que acceder a esta propiedad
 </td>
 ```
 
+## Resumén de obtener información
 
+- Tocar el router para si estamos en imagen subida obtener el fichero
+  - Detectar que comienza por 'img_in_url'
+  - Cargar el fichero que está en esa ruta cambiando 'img_in_url' por 'img_path'
+- Añadir a mano en la base de datos las rutas a los ficheros
+  - Desde 'img_path'
+- Añadir el campo a la getImg al objeto que tiene la imagen
+  - Tener en cuenta que hay que pegar la ruta desde la url
+
+El mayor posible conflicto es el cambio de URL al sistema de ficheros
+- router -> Detecta si estamos ante una imagen subida y carga el fichero
+- base de datos -> Almacena ruta relativa al directorio de imágenes
+- objetos -> Devuelven ruta web (configuración más lo almacenado)
+
+
+## Siguiente
+
+Guardar información
 
 ## Siguientes pasos
 
-Cuando en el proyecto se alamacenan muchas imágenes es posible hacer un clasificación de ficheros basadas en la fecha actual.
+Cuando en el proyecto se almacenan muchas imágenes es posible hacer un clasificación de ficheros basadas en la fecha actual.
 ```
 \2019\01\<nombre_usuario>\<nombre_imagen>.png
 ```
