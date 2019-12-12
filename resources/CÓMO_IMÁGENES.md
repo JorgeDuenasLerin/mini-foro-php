@@ -80,13 +80,52 @@ El mayor posible conflicto es el cambio de URL al sistema de ficheros
 - objetos -> Devuelven ruta web (configuración más lo almacenado)
 
 
-## Siguiente
+## Guardar información
 
-Guardar información
+El ejemplo se encuentra en ```crea_tema.php```
 
-## Siguientes pasos
+Necesitamos comprobar
+- Fichero del tipo adecuado
+- Fichero no excede los límites
+- (Opcional) Que el fichero destino no existe
+
+Para procesar esto se hace de la misma forma que lo hacíamos con los otros campos de los formularios pero usando la variable ```$_FILES```
+
+NOTA: Existe un problema a la hora de mantener la información de los ficheros en los formularios.
+
+Una vez los datos son correctos y el fichero es adecuado pasamos al alta en base de datos:
+```
+if(count($errores) == 0) {
+    // Metemos en la base de datos el nombre real
+    $id = TemaManager::insert($titulo, $nombre, $etiqueta, $nombre_real);
+    if($id){
+        if (move_uploaded_file($fichero_tmp, $ROOT.$ruta_destino)) {
+            echo "<h1>TODO bien!!</h1>";
+            echo "<h1><a href=\"listado_temas.php\">REDIRECCIÓN AUTOMÁTICA AL LISTADO</a></h1>";
+        } else {
+            $errores[] = "Error moviendo fichero";
+            // Ojo!!!
+            $borrado = TemaManager::delete($id);
+
+            if(!$borrado) {
+                // Ha ocurrido un error extraño
+                // Debemos reportarlo y que un admin
+                // Deje la información correcta
+                // Hay un tema sin imagen
+                // También podríamos usar transacciones de base de datos
+            }
+        }
+    } else {
+        $errores[] = "Error en la insercción";
+    }
+}
+```
+
+## Elementos avanzados
 
 Cuando en el proyecto se almacenan muchas imágenes es posible hacer un clasificación de ficheros basadas en la fecha actual.
 ```
 \2019\01\<nombre_usuario>\<nombre_imagen>.png
 ```
+
+Mantener la información del fichero en el formulario cuando hay un error en los datos
