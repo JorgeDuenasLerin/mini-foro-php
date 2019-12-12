@@ -16,7 +16,7 @@ if (preg_match('/\.(?:css|js|ico|png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"]))
         // Quitamos el prefijo de la petición
         $file_path = str_replace($config['img_in_url'],"",$_SERVER["REQUEST_URI"]);
         // Cargamos el fichero y lo enviamos
-        readfile($ROOT.$config['img_path'].$file_path);
+        readfile($ROOT.$config['img_path'].urldecode($file_path));
 
     } else {
         return false;    // servir la petición tal cual es.
